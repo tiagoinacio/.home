@@ -1,0 +1,61 @@
+fpath=(/usr/local/share/zsh-completions $fpath)
+#### Path
+export PATH=$PATH:/usr/local/bin/
+export PATH=$PATH:/Applications/Xcode.app/Contents/Developer/usr/bin/
+
+#### VIM
+bindkey -v
+export KEYTIMEOUT=1
+
+#### NPM
+NPM_PACKAGES="${HOME}/.npm-packages"
+PATH="$NPM_PACKAGES/bin:$PATH"
+# Unset manpath so we can inherit from /etc/manpath via the `manpath` command
+unset MANPATH # delete if you already modified MANPATH elsewhere in your config
+export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+
+#### PS1
+autoload -U promptinit; promptinit
+prompt pure
+
+#### Alias
+alias ..="cd .."
+alias src="source ~/.zshrc"
+alias l="clear"
+alias cdv="cd ~/.vim"
+alias cdw="cd ~/Work"
+alias cdt="cd ~/tmp"
+alias ls="ls -Gplah"
+alias g="git"
+alias gc="git commit -m"
+alias vi="vim"
+
+favorites() {
+    echo "" > ~/.fzf_favorites
+    echo "(" > ~/.emacs.d/projectile-bookmarks.eld
+    echo "/usr/local/etc/nginx/" >> ~/.fzf_favorites
+    echo "\"/usr/local/etc/nginx/\"" >> ~/.emacs.d/projectile-bookmarks.eld
+
+    _home=`find ~ -type d -maxdepth 1 -name ".*"`;
+    for i in $_home; do
+        echo $i >> ~/.fzf_favorites
+        echo "\"$i\"" >> ~/.emacs.d/projectile-bookmarks.eld
+    done
+
+    _work=`find ~/Work -type d -maxdepth 3`;
+    for i in $_work; do
+        echo $i >> ~/.fzf_favorites
+        echo "\"$i\"" >> ~/.emacs.d/projectile-bookmarks.eld
+    done
+    echo ")" >> ~/.emacs.d/projectile-bookmarks.eld
+}
+
+c() {
+    local dir
+    dir=$(cat /Users/tiagoinacio/.fzf_favorites | fzf +m) && cd "$dir"
+}
+
+#### RM
+setopt rmstarsilent
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

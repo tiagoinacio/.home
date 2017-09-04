@@ -1,7 +1,8 @@
-fpath=(/usr/local/share/zsh-completions $fpath)
 #### Path
+fpath=(/usr/local/share/zsh-completions $fpath)
 export PATH=$PATH:/usr/local/bin/
 export PATH=$PATH:/Applications/Xcode.app/Contents/Developer/usr/bin/
+zstyle ':completion:*:*:git:*' script ~/.home/git-completion.zsh
 
 #### VIM
 bindkey -v
@@ -52,10 +53,10 @@ favorites() {
 
 c() {
     local dir
-    dir=$(cat /Users/tiagoinacio/.fzf_favorites | fzf +m) && cd "$dir"
+    dir=$(cat /Users/tiago.inacio/.fzf_favorites | fzf +m) && cd "$dir"
 }
 
-#### RM
+#### Remove warning about deleting directory
 setopt rmstarsilent
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

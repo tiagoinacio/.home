@@ -17,10 +17,17 @@ export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 #### PS1
 autoload -U promptinit; promptinit
+autoload -U compinit && compinit
 prompt pure
+
+#### ZSH Options
+setopt menu_complete
+setopt rmstarsilent # Remove warning about deleting directory
+
 
 #### Alias
 alias ..="cd .."
+alias run="npm run"
 alias src="source ~/.zshrc"
 alias l="clear"
 alias cdv="cd ~/.vim"
@@ -30,6 +37,7 @@ alias ls="ls -Gplah"
 alias g="git"
 alias gc="git commit -m"
 alias vi="vim"
+alias mvim="/Applications/MacVim.app/Contents/MacOS/MacVim"
 
 favorites() {
     echo "" > ~/.fzf_favorites
@@ -55,8 +63,5 @@ c() {
     local dir
     dir=$(cat /Users/tiago.inacio/.fzf_favorites | fzf +m) && cd "$dir"
 }
-
-#### Remove warning about deleting directory
-setopt rmstarsilent
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

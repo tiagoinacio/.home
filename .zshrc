@@ -25,7 +25,7 @@ prompt pure
 compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 fpath=(/usr/local/share/zsh-completions $fpath)
-source /Users/tiago.inacio/Work/github/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/Work/github/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 #### ZSH Options
 setopt menu_complete
@@ -73,7 +73,7 @@ favorites() {
 
 c() {
     local dir
-    dir=$(cat /Users/tiago.inacio/.fzf_favorites | fzf +m) && cd "$dir"
+    dir=$(cat ~/.fzf_favorites | fzf +m) && cd "$dir"
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

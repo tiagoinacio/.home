@@ -1,6 +1,8 @@
 #### Path
 fpath=(/usr/local/share/zsh-completions $fpath)
+export PATH=$PATH:~/Work/emsdk-portable/emscripten/1.37.22/
 export PATH=$PATH:/usr/local/bin/
+export PATH=$PATH:.node_modules/.bin/
 export PATH=$PATH:/Applications/Xcode.app/Contents/Developer/usr/bin/
 zstyle ':completion:*:*:git:*' script ~/.home/git-completion.zsh
 
@@ -16,14 +18,21 @@ unset MANPATH # delete if you already modified MANPATH elsewhere in your config
 export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 #### PS1
-autoload -U promptinit; promptinit
-autoload -U compinit && compinit
+autoload -U promptinit compinit
+promptinit
 prompt pure
+
+compinit
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+fpath=(/usr/local/share/zsh-completions $fpath)
+source /Users/tiago.inacio/Work/github/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 #### ZSH Options
 setopt menu_complete
 setopt rmstarsilent # Remove warning about deleting directory
 
+#### Chromium
+export PATH=$PATH:~/Work/googlesource/chromium/tools/depot_tools
 
 #### Alias
 alias ..="cd .."
@@ -38,6 +47,9 @@ alias g="git"
 alias gc="git commit -m"
 alias vi="vim"
 alias mvim="/Applications/MacVim.app/Contents/MacOS/MacVim"
+alias build="cd build/ && rm -rf * && cmake .. && make && ./unit-tests && make valgrind && cd .. || cd .."
+
+alias preview="fzf --preview="cat {}" --preview-window=right:70%:wrap"
 
 favorites() {
     echo "" > ~/.fzf_favorites
@@ -65,3 +77,4 @@ c() {
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+alias vimr="/Applications/VimR.app/Contents/MacOS/VimR"

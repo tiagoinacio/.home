@@ -4,11 +4,14 @@ export PATH=$PATH:~/Work/emsdk-portable/emscripten/1.37.22/
 export PATH=$PATH:/usr/local/bin/
 export PATH=$PATH:.node_modules/.bin/
 export PATH=$PATH:/Applications/Xcode.app/Contents/Developer/usr/bin/
+export PATH=$PATH:~/Library/Python/2.7/bin/
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 zstyle ':completion:*:*:git:*' script ~/.home/git-completion.zsh
 
 #### VIM
 bindkey -v
 export KEYTIMEOUT=1
+alias jtags="ctags -R src tags"
 
 #### NPM
 NPM_PACKAGES="${HOME}/.npm-packages"
@@ -76,5 +79,13 @@ c() {
     dir=$(cat ~/.fzf_favorites | fzf +m) && cd "$dir"
 }
 
+#### POWERLINE
+export POWERLINE_CONFIG_COMMAND=powerline-config
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+#### APPS
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-alias vimr="/Applications/VimR.app/Contents/MacOS/VimR"
+# [ -f ~/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh ] && source ~/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
+

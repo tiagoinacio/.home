@@ -89,3 +89,12 @@ export LANG=en_US.UTF-8
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # [ -f ~/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh ] && source ~/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
 
+
+#### Git FZF
+co() {
+    branch=$(git branch | fzf +m) && git co origin "$branch"
+}
+
+push() {
+    echo "git push origin `git rev-parse --abbrev-ref HEAD`" | pbcopy
+}

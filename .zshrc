@@ -54,31 +54,6 @@ alias build="cd build/ && rm -rf * && cmake .. && make && ./unit-tests && make v
 
 alias preview="fzf --preview="cat {}" --preview-window=right:70%:wrap"
 
-favorites() {
-    echo "" > ~/.fzf_favorites
-    echo "(" > ~/.emacs.d/projectile-bookmarks.eld
-    echo "/usr/local/etc/nginx/" >> ~/.fzf_favorites
-    echo "\"/usr/local/etc/nginx/\"" >> ~/.emacs.d/projectile-bookmarks.eld
-
-    _home=`find ~ -type d -maxdepth 1 -name ".*"`;
-    for i in $_home; do
-        echo $i >> ~/.fzf_favorites
-        echo "\"$i\"" >> ~/.emacs.d/projectile-bookmarks.eld
-    done
-
-    _work=`find ~/Work -type d -maxdepth 3`;
-    for i in $_work; do
-        echo $i >> ~/.fzf_favorites
-        echo "\"$i\"" >> ~/.emacs.d/projectile-bookmarks.eld
-    done
-    echo ")" >> ~/.emacs.d/projectile-bookmarks.eld
-}
-
-c() {
-    local dir
-    dir=$(cat ~/.fzf_favorites | fzf +m) && cd "$dir"
-}
-
 #### POWERLINE
 export POWERLINE_CONFIG_COMMAND=powerline-config
 export LC_ALL=en_US.UTF-8
@@ -167,3 +142,16 @@ export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat 
 
 export FZF_TMUX=1
 source ~/key-binding.zsh
+eval "$(rbenv init -)"
+
+source ~/Work/github/tiagoinacio/fzf-bookmark/fzf-bookmark.zsh
+
+bookmark() {
+    bookmark-dir ~
+    bookmark-rec ~/Work 3
+}
+
+c() {
+    bookmark-list
+}
+
